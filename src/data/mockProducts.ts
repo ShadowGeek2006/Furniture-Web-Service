@@ -1,0 +1,156 @@
+import { Product } from "@/types/product";
+
+export const MOCK_PRODUCTS: Product[] = [
+  {
+    id: "prod-001",
+    slug: "malabar-solid-teak-dining-table",
+    name: "Malabar 6-Seater Dining Table",
+    subtitle: "Solid Plantation Teak with Beveled Edges",
+    category: "Dining Room",
+    price: 48500,
+    originalPrice: 54000,
+    woodType: "Solid Teak",
+    finish: "Honey Teak",
+    dimensions: { length: 72, width: 36, height: 30, unit: "in" },
+    description: "Crafted from 100% seasoned Grade-A plantation teak, the Malabar Dining Table features chamfered edges, mortise-and-tenon joints, and organic water-resistant oil polish.",
+    specifications: {
+      Timber: "Kiln-dried Seasoned Burma Teak (Moisture < 10%)",
+      Joinery: "Traditional Mortise & Tenon with Wooden Pegs",
+      TopThickness: "32mm Solid Planks",
+      Polish: "Low-VOC Hand-Rubbed Linseed Oil & Beeswax",
+      SeatingCapacity: "Seats 6 adults comfortably",
+      Assembly: "Easy bolt-on leg assembly included",
+    },
+    inStock: true,
+    leadTimeDays: 7,
+    warrantyYears: 10,
+    images: [
+      "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=1200&q=80"
+    ],
+    featured: true,
+    bestseller: true,
+    tags: ["Dining Table", "Solid Teak", "6 Seater", "Handcrafted"]
+  },
+  {
+    id: "prod-002",
+    slug: "chola-sheesham-king-platform-bed",
+    name: "Chola King Platform Bed with Fluted Headboard",
+    subtitle: "Kiln-Dried Sheesham Wood with Concealed Storage",
+    category: "Bedroom",
+    price: 62000,
+    originalPrice: 69000,
+    woodType: "Sheesham (Indian Rosewood)",
+    finish: "Natural Walnut",
+    dimensions: { length: 82, width: 76, height: 44, unit: "in" },
+    description: "Architectural centerpiece for the bedroom featuring vertical hand-fluted headboard and deep hydraulic storage bays.",
+    specifications: {
+      Timber: "FSC Certified Seasoned Indian Sheesham",
+      Headboard: "Architectural vertical hand-fluted solid timber",
+      Storage: "Hydraulic assisted deep under-bed storage bays",
+      MattressCompatibility: "Standard King (72 in x 78 in)",
+      Polish: "Warm Walnut Matt Finish with UV polyurethane seal",
+      Assembly: "Professional White-Glove On-site assembly included",
+    },
+    inStock: true,
+    leadTimeDays: 10,
+    warrantyYears: 10,
+    images: [
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1540518614846-7ede433c4550?auto=format&fit=crop&w=1200&q=80"
+    ],
+    featured: true,
+    bestseller: true,
+    tags: ["King Bed", "Storage Bed", "Sheesham", "Luxury Bedroom"]
+  },
+  {
+    id: "prod-003",
+    slug: "mysore-lounge-armchair-cane-weave",
+    name: "Mysore Cane-Back Accent Chair",
+    subtitle: "Hand-Woven Natural Rattan on Solid Teak Frame",
+    category: "Living Room",
+    price: 18500,
+    originalPrice: 21000,
+    woodType: "Solid Teak",
+    finish: "Honey Teak",
+    dimensions: { length: 28, width: 30, height: 32, unit: "in" },
+    description: "Heritage colonial veranda lounge chair merging plantation teak with artisanal hexagonal cane webbing and Belgian linen cushion.",
+    specifications: {
+      Frame: "First-grade Solid Teak Wood",
+      Backrest: "Grade-A Natural Octagonal Hand-Knotted Cane Weave",
+      Cushion: "38-Density Ortho-Comfort Foam with Removable Zip Cover",
+      Fabric: "Breathable Belgian Linen-Cotton Blend (Oatmeal Cream)",
+      WeightCapacity: "Tested up to 140 kg",
+      Assembly: "Pre-assembled in one piece (No assembly required)",
+    },
+    inStock: true,
+    leadTimeDays: 4,
+    warrantyYears: 5,
+    images: [
+      "https://images.unsplash.com/photo-1580481077195-c3a821a58875?auto=format&fit=crop&w=1200&q=80"
+    ],
+    featured: true,
+    bestseller: false,
+    tags: ["Accent Chair", "Cane Furniture", "Solid Teak", "Lounge"]
+  },
+  {
+    id: "prod-004",
+    slug: "tanjore-solid-wood-credenza-sideboard",
+    name: "Tanjore 3-Door Minimalist Credenza",
+    subtitle: "Acoustic Slatted Sliders & Brass Tapered Feet",
+    category: "Living Room",
+    price: 38000,
+    originalPrice: 42000,
+    woodType: "Sheesham (Indian Rosewood)",
+    finish: "Dark Mahogany",
+    dimensions: { length: 64, width: 18, height: 32, unit: "in" },
+    description: "Versatile credenza featuring slatted sliding doors, hand-turned brass feet, and adjustable internal shelving.",
+    specifications: {
+      Timber: "Pure Seasoned Sheesham Wood",
+      Hardware: "Solid Antique Brass Handles & Leg Ferrules",
+      CableManagement: "Two discrete rear wire-pass grommets",
+      Shelves: "Adjustable height 3-tier internal shelves",
+      Polish: "Deep Mahogany with silky hand-waxed lustre",
+      Assembly: "Legs require simple tool-free screwing",
+    },
+    inStock: false,
+    leadTimeDays: 14,
+    warrantyYears: 10,
+    images: [
+      "https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=1200&q=80"
+    ],
+    featured: false,
+    bestseller: true,
+    tags: ["Sideboard", "Credenza", "TV Unit", "Storage"]
+  },
+  {
+    id: "prod-005",
+    slug: "kanpur-executive-solid-wood-study-desk",
+    name: "Kanpur Executive Writing Desk",
+    subtitle: "Dual Drawer Study Desk with Concealed Cable Bay",
+    category: "Study & Office",
+    price: 32500,
+    originalPrice: 36000,
+    woodType: "Solid Teak",
+    finish: "Natural Walnut",
+    dimensions: { length: 54, width: 26, height: 30, unit: "in" },
+    description: "Continuous grain top plank, rounded wrist edges, and two felt-lined dovetail drawers with magnetic cable management tray.",
+    specifications: {
+      Timber: "Solid Seasoned Teak",
+      Drawers: "Full-extension ball-bearing slides with solid brass pulls",
+      DrawerInterior: "Lined with charcoal Italian microfiber felt",
+      Ergonomics: "Optimal 30-inch height suitable for standard ergonomic seating",
+      Finish: "Stain-resistant Matte Water-Based Sealant",
+      Assembly: "Simple 4-bolt leg attachment",
+    },
+    inStock: true,
+    leadTimeDays: 5,
+    warrantyYears: 10,
+    images: [
+      "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    featured: true,
+    bestseller: false,
+    tags: ["Study Desk", "Office Furniture", "Solid Teak", "Writing Table"]
+  }
+];
