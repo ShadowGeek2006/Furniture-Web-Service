@@ -15,16 +15,18 @@ export default function ProductDetailPage() {
 
   const product = MOCK_PRODUCTS.find((p) => p.slug === slug);
 
+  // Hooks must run unconditionally on every render (Rules of Hooks), so they
+  // are declared before the not-found check below, with safe fallback values.
+  const { addItem } = useCart();
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedWood, setSelectedWood] = useState<string>(product?.woodType ?? "");
+  const [selectedFinish, setSelectedFinish] = useState<string>(product?.finish ?? "");
+  const [quantity, setQuantity] = useState(1);
+  const [isAddedToast, setIsAddedToast] = useState(false);
+
   if (!product) {
     return notFound();
   }
-
-  const { addItem } = useCart();
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedWood, setSelectedWood] = useState<string>(product.woodType);
-  const [selectedFinish, setSelectedFinish] = useState<string>(product.finish);
-  const [quantity, setQuantity] = useState(1);
-  const [isAddedToast, setIsAddedToast] = useState(false);
 
   const finishes = [
     { name: "Honey Teak", hex: "#C68B59" },
@@ -132,15 +134,15 @@ export default function ProductDetailPage() {
                 <div className="grid grid-cols-3 gap-2 text-center">
                   <div className="bg-white p-2 rounded-sm border border-sand-200">
                     <span className="text-[10px] text-sand-400 block uppercase">Length</span>
-                    <span className="font-semibold text-espresso-900 text-sm">{product.dimensions.length}" ({Math.round(product.dimensions.length * 2.54)} cm)</span>
+                    <span className="font-semibold text-espresso-900 text-sm">{product.dimensions.length}&quot; ({Math.round(product.dimensions.length * 2.54)} cm)</span>
                   </div>
                   <div className="bg-white p-2 rounded-sm border border-sand-200">
                     <span className="text-[10px] text-sand-400 block uppercase">Width</span>
-                    <span className="font-semibold text-espresso-900 text-sm">{product.dimensions.width}" ({Math.round(product.dimensions.width * 2.54)} cm)</span>
+                    <span className="font-semibold text-espresso-900 text-sm">{product.dimensions.width}&quot; ({Math.round(product.dimensions.width * 2.54)} cm)</span>
                   </div>
                   <div className="bg-white p-2 rounded-sm border border-sand-200">
                     <span className="text-[10px] text-sand-400 block uppercase">Height</span>
-                    <span className="font-semibold text-espresso-900 text-sm">{product.dimensions.height}" ({Math.round(product.dimensions.height * 2.54)} cm)</span>
+                    <span className="font-semibold text-espresso-900 text-sm">{product.dimensions.height}&quot; ({Math.round(product.dimensions.height * 2.54)} cm)</span>
                   </div>
                 </div>
               </div>
