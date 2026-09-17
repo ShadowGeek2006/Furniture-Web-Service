@@ -95,15 +95,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
         return;
       }
 
-      // Cache the server-validated order locally so the admin portal (in this
-      // same browser) can find it under Orders & Inquiries. See README for
-      // the current single-browser limitation of this storage approach.
-      const existingOrders = JSON.parse(localStorage.getItem("artisan_furniture_orders") || "[]");
-      localStorage.setItem(
-        "artisan_furniture_orders",
-        JSON.stringify([data.order, ...existingOrders])
-      );
-
+      // The order is now persisted server-side by /api/orders itself (see
+      // orderService.createOrder) — the admin portal reads it straight from
+      // there, from any device, so there's nothing left to cache here.
       setSubmittedOrder({ orderNumber: data.order.orderNumber, waLink: data.waLink });
       clearCart();
     } catch (err) {

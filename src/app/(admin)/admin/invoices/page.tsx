@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Invoice } from "@/types/invoice";
-import { getStoredInvoices } from "@/lib/orderService";
 import { formatINR, formatDate } from "@/lib/utils";
 import { Badge, Input, Button } from "@/components/ui";
 
@@ -12,7 +11,10 @@ export default function AdminInvoicesListPage() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    setInvoices(getStoredInvoices());
+    fetch("/api/admin/invoices")
+      .then((res) => res.json())
+      .then((data) => setInvoices(data.invoices || []))
+      .catch((err) => console.error("Failed to load invoices:", err));
   }, []);
 
   const filteredInvoices = invoices.filter((inv) => {

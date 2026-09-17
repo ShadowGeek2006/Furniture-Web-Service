@@ -1,9 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ADMIN_SESSION_COOKIE, createSessionToken, isCorrectPassword } from "@/lib/adminAuth";
+import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7; // 7 days
 
 export async function POST(req: NextRequest) {
+  // Brute-force protection: 5 attempts per IP per 15 minutes. This is the
+  // only password gate in the app (single shared admin password), so it's
+  // the single highest-value place to slow down guessing.
+  const ip = getClientIp(req);
+  const rl = checkRateLimit(`admin-login:${ip}`, 5, 15 * 60 * 1000);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Too many login attempts. Please try again later." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfterSeconds) } }
+    );
+  }
+
   let password: unknown;
   try {
     const body = await req.json();

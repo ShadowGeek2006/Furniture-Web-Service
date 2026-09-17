@@ -1,25 +1,9 @@
-/**
- * ⚠️ KNOWN LIMITATION — not currently used by the admin UI.
- *
- * `orderService.ts` reads/writes orders and invoices via `localStorage`,
- * which only exists in the browser. This route runs as a Vercel serverless
- * function (no `window`), so `getStoredInvoices()` / `generateInvoiceForOrder()`
- * can only ever see the hardcoded seed data here — never a real order placed
- * through the site. The admin pages (`/admin/orders/[id]`, `/admin/invoices`)
- * bypass this route entirely and call `orderService.ts` directly client-side,
- * which is why invoice generation works there today.
- *
- * Wiring this endpoint up for real (e.g. for a future mobile app or external
- * integration) requires a real datastore — e.g. Vercel Postgres, Vercel KV,
- * or Supabase — behind `orderService.ts`, replacing the `localStorage` calls
- * with reads/writes to that store. Until then, treat this route as a stub.
- */
 import { NextRequest, NextResponse } from "next/server";
-import { getStoredInvoices, generateInvoiceForOrder } from "@/lib/orderService";
+import { listInvoices, generateInvoiceForOrder } from "@/lib/orderService";
 
 export async function GET() {
   try {
-    const invoices = getStoredInvoices();
+    const invoices = await listInvoices();
     return NextResponse.json({ invoices });
   } catch (err) {
     return NextResponse.json({ error: "Failed to fetch invoices" }, { status: 500 });
@@ -35,7 +19,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "orderId is required" }, { status: 400 });
     }
 
-    const invoice = generateInvoiceForOrder({
+    const invoice = await generateInvoiceForOrder({
       orderId,
       taxMode: taxMode || "EXCLUSIVE",
       isInterState: Boolean(isInterState),
@@ -47,6 +31,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, invoice }, { status: 201 });
   } catch (err: any) {
     console.error("Invoice creation error:", err);
-    return NextResponse.json({ error: err.message || "Failed to generate invoice" }, { status: 500 });
+    const message = err.message || "Failed to generate invoice";
+    // "Order not found" -> 404; "already has a finalized invoice" / empty
+    // cart -> 409 Conflict (the request is well-formed but the order's
+    // current state doesn't allow it); anything else -> 500.
+    const status = message.includes("not found")
+      ? 404
+      : message.includes("already") || message.includes("no items")
+      ? 409
+      : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }

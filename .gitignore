@@ -32,3 +32,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# order/invoice JSON data store (contains real customer data — never commit)
+/data/

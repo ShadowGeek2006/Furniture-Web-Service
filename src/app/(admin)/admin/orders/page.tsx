@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Order } from "@/types/order";
-import { getStoredOrders } from "@/lib/orderService";
 import { formatINR, formatDate } from "@/lib/utils";
 import { Badge, Input, Button } from "@/components/ui";
 
@@ -13,7 +12,10 @@ export default function AdminOrdersPage() {
   const [statusFilter, setStatusFilter] = useState("ALL");
 
   useEffect(() => {
-    setOrders(getStoredOrders());
+    fetch("/api/admin/orders")
+      .then((res) => res.json())
+      .then((data) => setOrders(data.orders || []))
+      .catch((err) => console.error("Failed to load orders:", err));
   }, []);
 
   const filteredOrders = orders.filter((ord) => {

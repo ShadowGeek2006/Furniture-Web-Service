@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  const token = cookies().get(ADMIN_SESSION_COOKIE)?.value;
+  const token = (await cookies()).get(ADMIN_SESSION_COOKIE)?.value;
   const authenticated = await verifySessionToken(token).catch(() => false);
 
   return (

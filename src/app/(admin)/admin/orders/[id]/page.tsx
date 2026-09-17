@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { Order, OrderItem } from "@/types/order";
-import { getOrderById, updateOrder, generateInvoiceForOrder } from "@/lib/orderService";
 import { formatINR, formatDate } from "@/lib/utils";
 import { Button, Input, Select, Badge } from "@/components/ui";
 import { TaxMode } from "@/types/invoice";
@@ -30,17 +29,42 @@ export default function AdminOrderDetailPage() {
   const [newItemQty, setNewItemQty] = useState<number>(1);
 
   useEffect(() => {
-    const found = getOrderById(id);
-    if (found) {
-      setOrder(found);
-      setDiscount(found.discount || 0);
-      setDeliveryFee(found.deliveryFee || 0);
-      // If customer city does not mention Uttar Pradesh, preselect Inter-State IGST
-      if (!found.customer.city.toLowerCase().includes("pradesh") && !found.customer.city.toLowerCase().includes("up")) {
-        setIsInterState(true);
-      }
-    }
+    fetch(`/api/admin/orders/${id}`)
+      .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+      .then((data) => {
+        const found: Order = data.order;
+        setOrder(found);
+        setDiscount(found.discount || 0);
+        setDeliveryFee(found.deliveryFee || 0);
+        // If customer city does not mention Uttar Pradesh, preselect Inter-State IGST
+        if (!found.customer.city.toLowerCase().includes("pradesh") && !found.customer.city.toLowerCase().includes("up")) {
+          setIsInterState(true);
+        }
+      })
+      .catch(() => setOrder(null));
   }, [id]);
+
+  // Persists an item/discount/delivery-fee/status change to the server.
+  // Totals are always recomputed server-side (see updateOrder in
+  // orderService.ts) — this just sends the admin's intended edits.
+  async function persistOrderUpdate(patch: {
+    items?: OrderItem[];
+    discount?: number;
+    deliveryFee?: number;
+    status?: Order["status"];
+  }) {
+    const res = await fetch(`/api/admin/orders/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(patch),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.error || "Failed to update order");
+    }
+    setOrder(data.order);
+    return data.order as Order;
+  }
 
   if (!order) {
     return (
@@ -53,7 +77,7 @@ export default function AdminOrderDetailPage() {
     );
   }
 
-  const handleQtyChange = (itemId: string, delta: number) => {
+  const handleQtyChange = async (itemId: string, delta: number) => {
     const updatedItems = order.items.map((it) => {
       if (it.id === itemId) {
         const newQty = Math.max(1, it.quantity + delta);
@@ -61,36 +85,27 @@ export default function AdminOrderDetailPage() {
       }
       return it;
     });
-
-    const newSubtotal = updatedItems.reduce((s, i) => s + i.subtotal, 0);
-    const updated = {
-      ...order,
-      items: updatedItems,
-      subtotal: newSubtotal,
-      totalAmount: newSubtotal - discount + deliveryFee,
-    };
-    setOrder(updated);
-    updateOrder(updated);
+    try {
+      await persistOrderUpdate({ items: updatedItems });
+    } catch (err: any) {
+      alert(err.message || "Failed to update item quantity");
+    }
   };
 
-  const handleRemoveItem = (itemId: string) => {
+  const handleRemoveItem = async (itemId: string) => {
     if (order.items.length <= 1) {
       alert("Order must contain at least one item.");
       return;
     }
     const updatedItems = order.items.filter((it) => it.id !== itemId);
-    const newSubtotal = updatedItems.reduce((s, i) => s + i.subtotal, 0);
-    const updated = {
-      ...order,
-      items: updatedItems,
-      subtotal: newSubtotal,
-      totalAmount: newSubtotal - discount + deliveryFee,
-    };
-    setOrder(updated);
-    updateOrder(updated);
+    try {
+      await persistOrderUpdate({ items: updatedItems });
+    } catch (err: any) {
+      alert(err.message || "Failed to remove item");
+    }
   };
 
-  const handleAddCustomItem = (e: React.FormEvent) => {
+  const handleAddCustomItem = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newItemName.trim()) return;
 
@@ -106,50 +121,48 @@ export default function AdminOrderDetailPage() {
     };
 
     const updatedItems = [...order.items, newItem];
-    const newSubtotal = updatedItems.reduce((s, i) => s + i.subtotal, 0);
-    const updated = {
-      ...order,
-      items: updatedItems,
-      subtotal: newSubtotal,
-      totalAmount: newSubtotal - discount + deliveryFee,
-    };
-    setOrder(updated);
-    updateOrder(updated);
-
-    setIsAddingItem(false);
-    setNewItemName("");
-    setNewItemPrice(5000);
-    setNewItemQty(1);
+    try {
+      await persistOrderUpdate({ items: updatedItems });
+      setIsAddingItem(false);
+      setNewItemName("");
+      setNewItemPrice(5000);
+      setNewItemQty(1);
+    } catch (err: any) {
+      alert(err.message || "Failed to add item");
+    }
   };
 
-  const handleFinancialAdjust = (newDiscount: number, newDelivery: number) => {
+  const handleFinancialAdjust = async (newDiscount: number, newDelivery: number) => {
     setDiscount(newDiscount);
     setDeliveryFee(newDelivery);
-    const updated = {
-      ...order,
-      discount: newDiscount,
-      deliveryFee: newDelivery,
-      totalAmount: order.subtotal - newDiscount + newDelivery,
-    };
-    setOrder(updated);
-    updateOrder(updated);
+    try {
+      await persistOrderUpdate({ discount: newDiscount, deliveryFee: newDelivery });
+    } catch (err: any) {
+      alert(err.message || "Failed to update pricing");
+    }
   };
 
   const handleGenerateInvoice = async () => {
     setIsGenerating(true);
     try {
-      const invoice = generateInvoiceForOrder({
-        orderId: order.id,
-        taxMode,
-        isInterState,
-        paymentStatus,
-        paymentMethod,
-        notes: `Confirmed order from WhatsApp. Payment confirmed via ${paymentMethod}.`,
+      const res = await fetch("/api/admin/invoices", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: order.id,
+          taxMode,
+          isInterState,
+          paymentStatus,
+          paymentMethod,
+          notes: `Confirmed order from WhatsApp. Payment confirmed via ${paymentMethod}.`,
+        }),
       });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to generate invoice");
 
-      router.push(`/admin/invoices/${invoice.id}`);
-    } catch (err) {
-      alert("Failed to generate invoice");
+      router.push(`/admin/invoices/${data.invoice.id}`);
+    } catch (err: any) {
+      alert(err.message || "Failed to generate invoice");
       console.error(err);
     } finally {
       setIsGenerating(false);

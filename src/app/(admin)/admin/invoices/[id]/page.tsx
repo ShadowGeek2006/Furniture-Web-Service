@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Invoice } from "@/types/invoice";
-import { getInvoiceById } from "@/lib/orderService";
 import { formatINR, formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui";
 
@@ -14,8 +13,10 @@ export default function AdminInvoiceViewPage() {
   const [invoice, setInvoice] = useState<Invoice | null>(null);
 
   useEffect(() => {
-    const found = getInvoiceById(id);
-    if (found) setInvoice(found);
+    fetch(`/api/admin/invoices/${id}`)
+      .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+      .then((data) => setInvoice(data.invoice))
+      .catch(() => setInvoice(null));
   }, [id]);
 
   if (!invoice) {

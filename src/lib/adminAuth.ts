@@ -9,6 +9,12 @@
  * This is intentionally simple for a solo-shop-owner admin panel. If the
  * business grows to multiple staff accounts with individual permissions,
  * replace this with real per-user authentication.
+ *
+ * Deliberately Edge-Runtime-safe: this module is imported by
+ * middleware.ts, which Next.js always runs in the Edge Runtime (even when
+ * self-hosted with `next start`) — so nothing in here imports Node's
+ * `crypto` module (not supported there); Web Crypto (`crypto.subtle`,
+ * globally available in both runtimes) is used instead.
  */
 
 export const ADMIN_SESSION_COOKIE = "admin_session";
@@ -58,7 +64,7 @@ export async function verifySessionToken(token: string | undefined | null): Prom
   return mismatch === 0;
 }
 
-/** Checks the submitted login password against ADMIN_PANEL_PASSWORD. */
+/** Checks the submitted login password against ADMIN_PANEL_PASSWORD, in constant time. */
 export function isCorrectPassword(candidate: string): boolean {
   const expected = process.env.ADMIN_PANEL_PASSWORD;
   if (!expected) {
@@ -66,5 +72,24 @@ export function isCorrectPassword(candidate: string): boolean {
       "ADMIN_PANEL_PASSWORD is not set. Set it in your environment before deploying — see .env.example."
     );
   }
-  return candidate === expected;
+  // A plain `===` here leaks timing information proportional to how many
+  // leading characters match, which (very slowly) helps an attacker guess
+  // the password character-by-character. Compare over a fixed-size, padded
+  // buffer with a full XOR-accumulate loop (same approach already used
+  // below in verifySessionToken) so every call does the same amount of work
+  // regardless of where — or whether — candidate and expected first differ.
+  const enc = new TextEncoder();
+  const a = enc.encode(candidate);
+  const b = enc.encode(expected);
+  const maxLen = Math.max(a.length, b.length, 64);
+  const aPadded = new Uint8Array(maxLen);
+  const bPadded = new Uint8Array(maxLen);
+  aPadded.set(a);
+  bPadded.set(b);
+
+  let mismatch = a.length === b.length ? 0 : 1;
+  for (let i = 0; i < maxLen; i++) {
+    mismatch |= aPadded[i] ^ bPadded[i];
+  }
+  return mismatch === 0;
 }
