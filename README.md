@@ -1,84 +1,39 @@
-# [CLIENT_NAME] — Artisanal Solid Wood Furniture Studio
+# Maa Samay Sitla Furniture and Electronics — Mau, UP
 
-An e-commerce showroom and workshop management system for a custom-crafted
-solid wood furniture brand.
+A production-ready e-commerce and workshop management system tailored for high-ticket, custom-crafted solid wood furniture brands. 
 
-Combines a zero-login guest browsing/enquiry flow with **automated WhatsApp
-order dispatch** and a **password-protected admin panel** for order tracking
-and GST invoicing.
+Combines zero-friction guest discovery with **automated WhatsApp order dispatch** and an **admin 1-click GST invoicing engine**.
 
 ---
 
 ## Key Features
 
 1. **Editorial Furniture Showroom:**
-   * Warm, tactile design system built with Tailwind CSS, `Playfair Display` serif typography, and espresso/linen/brass color tokens.
-   * Full catalog with room filters (*Living, Dining, Bedroom, Study*), timber variety filters (*Solid Teak, Sheesham, Solid Oak*), and price sorting.
-   * Product detail pages with dimensions (inches & cm), wood finish selectors, and technical specifications.
+   * Warm, tactile design system built with Tailwind CSS, `Playfair Display` serif typography, and rich espresso/linen/brass color tokens.
+   * Full catalog with dynamic room filters (*Living, Dining, Bedroom, Study*), timber variety filters (*Solid Teak, Sheesham, Solid Oak*), and price sorting.
+   * Product detail pages with multi-angle photography, architectural dimensions blueprints (inches & cm), wood finish selectors, and technical timber seasoning specifications.
 
 2. **Zero-Friction Cart & Automated WhatsApp Order Flow:**
    * Guest cart requiring zero customer login or password creation.
    * Checkout modal collecting contact details and delivery location.
-   * **Automated dispatch:** the server validates the order (re-pricing every item from the product catalog — the browser's price is never trusted), then alerts the shop owner and sends an automated acknowledgment to the customer via the Meta WhatsApp Cloud API.
-   * On-screen WhatsApp chat fallback link so customers can immediately discuss customization.
+   * **Automated Dual-Dispatch:** Backend instantly alerts the shop owner with the customer dossier and order summary, while sending an automated acknowledgment to the customer via Meta WhatsApp Cloud API.
+   * Direct on-screen WhatsApp chat fallback link so customers can immediately discuss customization and fabric swatches.
 
-3. **Password-Protected Staff Admin & 1-Click GST Invoicing:**
-   * The entire `/admin` section requires signing in at `/admin/login` — see **Admin Access** below.
-   * **Orders Dashboard (`/admin/orders`):** list of incoming enquiries with status tracking and search.
-   * **Order Editor (`/admin/orders/[id]`):** adjust quantities, add custom line items/surcharges, set discounts and delivery fees.
-   * **1-Click GST Invoicing:** computes 18% GST (Intra-State CGST+SGST vs Inter-State IGST) and locks the order into an invoice record (`INV-YYYY-XXXX`).
-   * **Print-Ready A4 Tax Invoice (`/admin/invoices/[id]`):** print stylesheet for clean printing or "Save as PDF".
+3. **Staff Admin & 1-Click GST Invoicing Engine:**
+   * **Orders Dashboard (`/admin/orders`):** Real-time list of all incoming inquiries with status tracking, revenue KPIs, and search.
+   * **Order Editor (`/admin/orders/[id]`):** Adjust quantities, add custom carpentry line items / surcharges, set trade discounts, and delivery fees.
+   * **1-Click GST Invoicing:** Computes 18% GST (Intra-State CGST+SGST vs Inter-State IGST), locks the order into a permanent, immutable record (`INV-YYYY-XXXX`).
+   * **Print-Ready A4 Tax Invoice (`/admin/invoices/[id]`):** Compliant with Indian GST rules, equipped with print stylesheets for clean printing or instant "Save as PDF".
 
 ---
 
-## Tech Stack & Current Storage Model
+## Free-Tier Tech Stack
 
 * **Framework:** Next.js 14 (App Router, TypeScript, Tailwind CSS)
-* **Hosting:** Vercel
-* **WhatsApp Dispatch:** Meta WhatsApp Cloud API (falls back to console logging if not configured — safe for local dev)
-
-**⚠️ Data storage — read this before going live:** there is currently **no
-database**. Orders and invoices created through the storefront and admin
-panel are cached in the browser's `localStorage`. This means:
-
-* Data is scoped to one browser on one device — the admin will only see
-  orders that were placed (or already loaded) in the same browser they're
-  viewing `/admin/orders` in. It will **not** sync across devices, and will
-  not survive clearing browser data.
-* The two `/api/admin/invoices` and (implicitly) any server-only invoice
-  read/write **cannot** see this data at all, since a Vercel serverless
-  function has no access to browser `localStorage`. See the comment at the
-  top of `src/app/api/admin/invoices/route.ts`.
-
-This is fine for a low-volume, single-admin, single-device workflow (e.g.
-the shop owner always checks orders from the same laptop). If the business
-needs multiple staff members or multi-device access, this needs to be
-replaced with a real datastore (e.g. Vercel Postgres, Vercel KV, or
-Supabase) behind `src/lib/orderService.ts` — that is a separate, scoped
-piece of work, not a quick config change.
-
-Product photography currently uses placeholder Unsplash stock images in
-`src/data/mockProducts.ts`. Replace these with the client's real product
-photography before going live (per internal build guidelines, stock photos
-should not ship in the final production build without client approval).
-
----
-
-## Admin Access
-
-The `/admin` section (and its API routes) is protected by a single shared
-password, checked server-side and backed by a signed session cookie — see
-`src/middleware.ts` and `src/lib/adminAuth.ts`. You must set two environment
-variables before the admin panel will work (see `.env.example`):
-
-* `ADMIN_PANEL_PASSWORD` — the password staff enter at `/admin/login`.
-* `ADMIN_SESSION_SECRET` — a long random string used to sign the session
-  cookie. Generate one with `openssl rand -hex 32`. Never reuse the example
-  value, and never commit a real value to git.
-
-This is a lightweight, single-password gate appropriate for one admin user.
-It does not support per-staff accounts, permissions, or audit trails — if
-that's needed later, it should be replaced with real per-user authentication.
+* **Database:** Serverless PostgreSQL (Neon / Supabase)
+* **Hosting:** Vercel (Hobby Tier — 100% Free, zero cold-start delay)
+* **Media & Assets:** Cloudinary CDN (Free 25GB storage for high-res furniture photography)
+* **WhatsApp Dispatch:** Meta WhatsApp Cloud API (1,000 free conversations/month)
 
 ---
 
@@ -90,34 +45,32 @@ that's needed later, it should be replaced with real per-user authentication.
    ```
 
 2. **Configure environment variables:**
-   ```bash
-   cp .env.example .env.local
-   ```
-   Then fill in `.env.local` with real values (at minimum, set
-   `ADMIN_PANEL_PASSWORD` and `ADMIN_SESSION_SECRET` so you can log into
-   `/admin`). `.env.local` is gitignored and never committed.
+   Create a `.env.local` file:
+   ```env
+   # Admin & Store Details
+   NEXT_PUBLIC_STORE_NAME="Maa Samay Sitla Furniture and Electronics"
+   ADMIN_WHATSAPP_NUMBER="919876543210"
 
-3. **Run the local development server:**
+   # Meta WhatsApp Cloud API (Optional in local dev - logs to terminal if omitted)
+   WHATSAPP_API_TOKEN="EAA..."
+   WHATSAPP_PHONE_NUMBER_ID="1234567890"
+
+   # Database (Neon / Supabase PostgreSQL)
+   DATABASE_URL="postgresql://user:password@host/db?sslmode=require"
+   ```
+
+3. **Run local development server:**
    ```bash
    npm run dev
    ```
-   Open `http://localhost:3000` for the customer showroom, and
-   `http://localhost:3000/admin/login` to sign in to the staff portal.
+   Open `http://localhost:3000` for the customer showroom, and `http://localhost:3000/admin/orders` for the staff invoicing portal.
 
 ---
 
-## Deploying to Vercel
+## One-Click Deployment to Vercel
 
-1. Push this repository to GitHub (`.gitignore` already excludes
-   `node_modules`, `.next`, and any `.env*.local` files).
+1. Push this repository to your **GitHub** account.
 2. Sign in to [Vercel](https://vercel.com) and click **"Add New Project"**.
-3. Import the GitHub repository (Vercel auto-detects Next.js — no extra
-   build configuration needed).
-4. In **Environment Variables**, add every variable listed in
-   `.env.example` with real production values. At minimum this means a
-   strong, unique `ADMIN_PANEL_PASSWORD` and a freshly generated
-   `ADMIN_SESSION_SECRET` — do not reuse local/dev values in production.
-5. Click **Deploy**.
-6. After deploying, confirm `/admin/orders` redirects you to
-   `/admin/login` when signed out, and that signing in with the
-   production password works, before sharing the URL with the client.
+3. Import your GitHub repository.
+4. Add the environment variables from `.env.example` into Vercel's **Environment Variables** settings.
+5. Click **Deploy**. Your furniture website is immediately live with free SSL and edge CDN!

@@ -54,7 +54,7 @@ export default function AdminInvoiceViewPage() {
           <a
             href={`https://wa.me/91${invoice.customerDetails.phone}?text=Hello%20${encodeURIComponent(
               invoice.customerDetails.fullName
-            )}%2C%20here%20is%20your%20official%20tax%20invoice%20${invoice.invoiceNumber}%20for%20your%20furniture%20order%20at%20[CLIENT_NAME].`}
+            )}%2C%20here%20is%20your%20official%20tax%20invoice%20${invoice.invoiceNumber}%20for%20your%20furniture%20order%20at%20Maa Samay Sitla Furniture and Electronics.`}
             target="_blank"
             rel="noopener noreferrer"
           >

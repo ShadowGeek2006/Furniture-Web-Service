@@ -11,18 +11,18 @@ export const HeroSection: React.FC = () => {
             <div className="inline-flex items-center space-x-2 bg-brass-50 border border-brass-200/80 px-3 py-1 rounded-sm">
               <span className="w-2 h-2 rounded-full bg-brass-500 animate-pulse" />
               <span className="text-[11px] uppercase tracking-widest text-brass-700 font-semibold">
-                Solid Wood Atelier &bull; Zero MDF
+                Furniture &amp; Electronics &bull; Best Budget Prices
               </span>
             </div>
 
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-espresso-900 leading-[1.15] tracking-tight">
-              Generational Furniture, <br />
-              <span className="italic font-light text-brass-700">Crafted to Outlast Trends.</span>
+              Best Quality Furniture <br />
+              <span className="italic font-light text-brass-700">and Electronics, At Your Budget.</span>
             </h1>
 
             <p className="text-base sm:text-lg text-espresso-700/80 max-w-xl leading-relaxed font-normal">
-              Hand-planed plantation teak and seasoned Sheesham rosewood. Built with traditional 
-              mortise-and-tenon joinery and organic finishes to bring warmth, permanence, and dignity to your home.
+              हर घर के लिए भरोसेमंद फर्नीचर और इलेक्ट्रॉनिक्स — अच्छी क्वालिटी, सही दाम।
+              Quality home furniture and electronics, priced so every family in Mau can afford the best.
             </p>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
@@ -40,16 +40,16 @@ export const HeroSection: React.FC = () => {
 
             <div className="pt-8 border-t border-sand-200/80 grid grid-cols-3 gap-6 text-espresso-800">
               <div>
-                <span className="font-serif text-2xl font-bold block text-espresso-900">100%</span>
-                <span className="text-xs text-sand-500 uppercase tracking-wider block mt-0.5">Kiln-Dried Hardwood</span>
+                <span className="font-serif text-2xl font-bold block text-espresso-900">230+</span>
+                <span className="text-xs text-sand-500 uppercase tracking-wider block mt-0.5">Products in Store</span>
               </div>
               <div>
-                <span className="font-serif text-2xl font-bold block text-espresso-900">10 Yrs</span>
-                <span className="text-xs text-sand-500 uppercase tracking-wider block mt-0.5">Structural Warranty</span>
+                <span className="font-serif text-2xl font-bold block text-espresso-900">240+</span>
+                <span className="text-xs text-sand-500 uppercase tracking-wider block mt-0.5">Happy Customers</span>
               </div>
               <div>
-                <span className="font-serif text-2xl font-bold block text-espresso-900">0%</span>
-                <span className="text-xs text-sand-500 uppercase tracking-wider block mt-0.5">MDF or Veneer</span>
+                <span className="font-serif text-2xl font-bold block text-espresso-900">Best</span>
+                <span className="text-xs text-sand-500 uppercase tracking-wider block mt-0.5">Prices in Mau</span>
               </div>
             </div>
           </div>

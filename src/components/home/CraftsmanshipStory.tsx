@@ -17,13 +17,13 @@ export const CraftsmanshipStory: React.FC = () => {
 
           <div className="lg:col-span-6 space-y-6 text-left">
             <span className="text-xs uppercase tracking-widest text-brass-600 font-semibold block">
-              The Atelier Philosophy
+              Our Promise / हमारा वादा
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl text-espresso-900 font-normal leading-snug">
-              Why Real Solid Wood Matters in a World of Disposable Furniture
+              Quality You Can Trust, Prices You Can Afford
             </h2>
             <p className="text-sm sm:text-base text-espresso-700/80 leading-relaxed">
-              Most commercial furniture today is manufactured from compressed sawdust and synthetic glues designed to degrade within 3 to 5 years. At <strong>[CLIENT_NAME]</strong>, we believe furniture should be an heirloom, not a landfill liability.
+              हम आपके लिए सही क्वालिटी और सही दाम में फर्नीचर व इलेक्ट्रॉनिक्स लाते हैं। At <strong>Maa Samay Sitla Furniture and Electronics</strong>, we believe good quality shouldn't cost a fortune — every product is checked before it reaches your home.
             </p>
 
             <div className="space-y-4 pt-2">
@@ -32,9 +32,9 @@ export const CraftsmanshipStory: React.FC = () => {
                   1
                 </span>
                 <div>
-                  <h4 className="font-serif text-base font-semibold text-espresso-900">Kiln-Dried Seasoned Timber</h4>
+                  <h4 className="font-serif text-base font-semibold text-espresso-900">Assured Quality & Durability (भरोसेमंद मजबूती)</h4>
                   <p className="text-xs text-sand-500 mt-0.5 leading-relaxed">
-                    Our wood is conditioned over 45 days in climate-controlled kilns to lower moisture content below 10%, ensuring zero warping, cracking, or seasonal expansion.
+                    हर फर्नीचर और इलेक्ट्रॉनिक्स प्रोडक्ट की सख्त गुणवत्ता जांच की जाती है, ताकि आपके घर को मिले टिकाऊ और मजबूत सामान। Every item is inspected for structural durability and authentic manufacturer standards.
                   </p>
                 </div>
               </div>
@@ -44,9 +44,9 @@ export const CraftsmanshipStory: React.FC = () => {
                   2
                 </span>
                 <div>
-                  <h4 className="font-serif text-base font-semibold text-espresso-900">Mortise & Tenon Architecture</h4>
+                  <h4 className="font-serif text-base font-semibold text-espresso-900">Safe Home Delivery Across Mau (मऊ व आसपास डिलीवरी)</h4>
                   <p className="text-xs text-sand-500 mt-0.5 leading-relaxed">
-                    We rely on interlocking wood joints and concealed wooden dowels rather than superficial nails or plastic brackets.
+                    दुबारी, मधुबन, मऊ और आसपास के क्षेत्रों में सुरक्षित होम डिलीवरी और अनपैकिंग सुविधा उपलब्ध कराई जाती है। Direct doorstep delivery and assistance to your home with careful handling.
                   </p>
                 </div>
               </div>
@@ -56,9 +56,9 @@ export const CraftsmanshipStory: React.FC = () => {
                   3
                 </span>
                 <div>
-                  <h4 className="font-serif text-base font-semibold text-espresso-900">Natural Breathable Finishes</h4>
+                  <h4 className="font-serif text-base font-semibold text-espresso-900">Best Budget Guarantee & Easy Payments (सही दाम, आसान पेमेंट)</h4>
                   <p className="text-xs text-sand-500 mt-0.5 leading-relaxed">
-                    Hand-applied cold-pressed linseed oils, organic shellac, and beeswax that nourish the grain without releasing toxic VOC fumes into your living space.
+                    हर परिवार के बजट के अनुकूल सही और पारदर्शी दाम। नकद (Cash), UPI और बैंक ट्रांसफर के आसान भुगतान विकल्प। Transparent showroom prices with flexible payment options.
                   </p>
                 </div>
               </div>

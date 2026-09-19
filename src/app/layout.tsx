@@ -6,8 +6,8 @@ import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 
 export const metadata: Metadata = {
-  title: "[CLIENT_NAME] — Artisanal Solid Wood Furniture Studio",
-  description: "Handcrafted generational furniture in solid plantation teak and seasoned Sheesham wood. Built with traditional mortise-and-tenon joinery and organic finishes. Zero MDF.",
+  title: "Maa Samay Sitla Furniture and Electronics — Mau, UP",
+  description: "Furniture and electronics showroom in Mau, Uttar Pradesh. Best quality furniture and electronics at your budget prices.",
 };
 
 export default function RootLayout({

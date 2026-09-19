@@ -8,10 +8,10 @@ import { ProductCard } from "@/components/product/ProductCard";
 export const FeaturedCollection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("All");
 
-  const tabs = ["All", "Living Room", "Dining Room", "Bedroom", "Study & Office"];
+  const tabs = ["All", "Living Room", "Dining Room", "Bedroom", "Study & Office", "Electronics"];
 
   const filteredProducts = activeTab === "All"
-    ? MOCK_PRODUCTS.slice(0, 6)
+    ? MOCK_PRODUCTS.slice(0, 8)
     : MOCK_PRODUCTS.filter((p) => p.category === activeTab);
 
   return (

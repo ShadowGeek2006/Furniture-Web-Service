@@ -3,24 +3,24 @@ import React from "react";
 export const TrustFeatures: React.FC = () => {
   const features = [
     {
-      icon: "🌳",
-      title: "100% Solid Seasoned Timber",
-      desc: "Grade-A Burma Teak and FSC-certified Indian Sheesham. Zero particle board, no hollow honeycomb cores.",
+      icon: "💰",
+      title: "Best Budget Prices",
+      desc: "अच्छी क्वालिटी, सही दाम — quality furniture and electronics at prices that fit your budget.",
     },
     {
-      icon: "🛡️",
-      title: "10-Year Structural Guarantee",
-      desc: "Every joint, plank, and framework is guaranteed against wood-borers, termites, and structural warping.",
+      icon: "🛋️",
+      title: "Wide Range of Furniture",
+      desc: "From living room to bedroom — a full range of home furniture to choose from.",
+    },
+    {
+      icon: "📺",
+      title: "Electronics Too",
+      desc: "TVs, appliances and more — everything for your home under one roof.",
     },
     {
       icon: "🚚",
-      title: "White-Glove In-Home Assembly",
-      desc: "Delivered directly into your room of choice, unpacked, inspected, and assembled by our workshop technicians.",
-    },
-    {
-      icon: "✨",
-      title: "Artisanal Polish Customization",
-      desc: "Choose between Natural Honey Teak, Matte Walnut, or Deep Charcoal with food-safe organic oil finishes.",
+      title: "Home Delivery",
+      desc: "Delivered to your doorstep in Mau and nearby areas.",
     },
   ];
 

@@ -12,7 +12,7 @@ interface MobileNavProps {
 
 export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose, links }) => {
   return (
-    <Drawer isOpen={isOpen} onClose={onClose} title="[CLIENT_NAME]" subtitle="Artisanal Solid Wood Studio" position="left">
+    <Drawer isOpen={isOpen} onClose={onClose} title="माँ समय शीतला फर्नीचर" subtitle="Furniture & Electronics" position="left">
       <div className="flex flex-col space-y-6">
         <nav className="flex flex-col space-y-4">
           <Link

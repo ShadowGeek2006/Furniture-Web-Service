@@ -9,7 +9,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-6">
               <Link href="/admin/orders" className="flex items-baseline space-x-2">
-                <span className="font-serif text-xl font-bold tracking-wider text-linen-100">[CLIENT_NAME]</span>
+                <span className="font-serif text-xl font-bold tracking-wider text-linen-100">Maa Samay Sitla Furniture and Electronics</span>
                 <span className="text-[10px] uppercase tracking-widest bg-brass-500/20 text-brass-300 px-2 py-0.5 rounded-sm font-semibold">
                   Staff Invoicing & Orders
                 </span>

@@ -28,7 +28,7 @@ export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         />
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 pointer-events-none">
           {product.bestseller && <Badge variant="brass">Bestseller</Badge>}
-          <Badge variant="sand">{product.woodType}</Badge>
+          <Badge variant="sand">{product.category === "Electronics" ? "Electronics" : product.woodType}</Badge>
         </div>
         <div className="absolute top-3 right-3 pointer-events-none">
           {product.inStock ? (

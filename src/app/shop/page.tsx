@@ -16,8 +16,8 @@ function ShopContent() {
   const [inStockOnly, setInStockOnly] = useState(false);
   const [sortBy, setSortBy] = useState<string>("featured");
 
-  const categories = ["All", "Living Room", "Dining Room", "Bedroom", "Study & Office"];
-  const woodTypes = ["All", "Solid Teak", "Sheesham (Indian Rosewood)", "Solid Oak"];
+  const categories = ["All", "Living Room", "Dining Room", "Bedroom", "Study & Office", "Electronics"];
+  const woodTypes = ["All", "Solid Teak", "Sheesham (Indian Rosewood)", "Solid Oak", "Electronics / Home Appliance"];
 
   const filteredProducts = useMemo(() => {
     return MOCK_PRODUCTS.filter((product) => {
@@ -51,10 +51,10 @@ function ShopContent() {
             The Complete Atelier Collection
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl text-espresso-900 font-normal">
-            Handcrafted Solid Wood Catalog
+            Furniture & Electronics Catalog
           </h1>
           <p className="text-sm text-sand-500 mt-2 max-w-2xl">
-            Filter our ready-to-ship and custom-crafted timber pieces. Every design can be customized in dimensions, fabric, and polish finish.
+            Browse our complete showroom catalog of living, dining, bedroom furniture, and home electronics at true budget prices.
           </p>
         </div>
 
@@ -128,7 +128,7 @@ function ShopContent() {
             </label>
 
             <span className="text-sand-500">
-              Showing <strong>{filteredProducts.length}</strong> of {MOCK_PRODUCTS.length} furniture designs
+              Showing <strong>{filteredProducts.length}</strong> of {MOCK_PRODUCTS.length} showroom products
             </span>
           </div>
         </div>
@@ -136,7 +136,7 @@ function ShopContent() {
         {filteredProducts.length === 0 ? (
           <div className="bg-white p-16 text-center border border-sand-200 rounded-sm">
             <h3 className="font-serif text-xl font-medium text-espresso-900 mb-2">
-              No matching furniture designs found
+              No matching showroom products found
             </h3>
             <p className="text-xs text-sand-500 max-w-sm mx-auto mb-6">
               Try adjusting your wood type, category, or search keywords. You can also consult our workshop directly on WhatsApp for bespoke requirements.

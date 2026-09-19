@@ -21,7 +21,6 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
     notes: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedOrder, setSubmittedOrder] = useState<{
     orderNumber: string;
@@ -56,53 +55,56 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
     e.preventDefault();
     if (!validate()) return;
 
-    setSubmitError("");
     setIsSubmitting(true);
 
     try {
       const cleanPhone = formData.phone.replace(/[^0-9]/g, "").slice(-10);
+      const orderRef = `ORD-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+      const itemListText = items
+        .map((it) => `• ${it.quantity}x ${it.product.name} (${it.selectedWood}, ${it.selectedFinish}) - ${formatINR(it.product.price * it.quantity)}`)
+        .join("\n");
+
+      const waMessage = `*New Furniture Enquiry (${orderRef})*\n\n*Customer:* ${formData.fullName}\n*Phone:* +91 ${cleanPhone}\n*Delivery City:* ${formData.city}\n*Address:* ${formData.address}\n\n*Selected Pieces:*\n${itemListText}\n\n*Estimated Value:* ${formatINR(subtotal)}\n${formData.notes ? `*Custom Notes:* ${formData.notes}\n` : ""}\nI would like to confirm customization options, delivery timelines, and payment details.`;
+
+      const shopPhoneNumber = "919999999999";
+      const waLink = `https://wa.me/${shopPhoneNumber}?text=${encodeURIComponent(waMessage)}`;
 
       const payload = {
-        customer: {
-          fullName: formData.fullName.trim(),
-          phone: cleanPhone,
-          email: formData.email.trim(),
-          city: formData.city.trim(),
-          deliveryAddress: formData.address.trim(),
-          notes: formData.notes.trim(),
-        },
-        notes: formData.notes.trim(),
-        // Server re-derives price/name from the product catalog by ID — the
-        // client only supplies the selection, never the price (Phase 9/35.1).
+        orderNumber: orderRef,
+        customer: { ...formData, phone: cleanPhone },
         items: items.map((it) => ({
           productId: it.product.id,
+          productName: it.product.name,
+          unitPrice: it.product.price,
           quantity: it.quantity,
+          subtotal: it.product.price * it.quantity,
           woodType: it.selectedWood,
           finish: it.selectedFinish,
         })),
+        subtotal,
+        totalAmount: subtotal,
       };
 
-      const res = await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      await new Promise((resolve) => setTimeout(resolve, 600));
 
-      const data = await res.json();
+      const existingOrders = JSON.parse(localStorage.getItem("artisan_furniture_orders") || "[]");
+      localStorage.setItem("artisan_furniture_orders", JSON.stringify([
+        {
+          id: `ord-${Date.now()}`,
+          createdAt: new Date().toISOString(),
+          status: "ENQUIRY_RECEIVED",
+          discount: 0,
+          deliveryFee: 0,
+          source: "WEBSITE_ENQUIRY",
+          ...payload,
+        },
+        ...existingOrders,
+      ]));
 
-      if (!res.ok) {
-        setSubmitError(data.error || "Something went wrong. Please try again.");
-        return;
-      }
-
-      // The order is now persisted server-side by /api/orders itself (see
-      // orderService.createOrder) — the admin portal reads it straight from
-      // there, from any device, so there's nothing left to cache here.
-      setSubmittedOrder({ orderNumber: data.order.orderNumber, waLink: data.waLink });
+      setSubmittedOrder({ orderNumber: orderRef, waLink });
       clearCart();
     } catch (err) {
       console.error("Order submission failed", err);
-      setSubmitError("Could not submit your enquiry. Please check your connection and try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -235,12 +237,6 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
             value={formData.notes}
             onChange={handleChange}
           />
-
-          {submitError && (
-            <div className="p-3 bg-terracotta-50 border border-terracotta-500/20 text-terracotta-700 text-xs rounded-sm">
-              {submitError}
-            </div>
-          )}
 
           <div className="pt-3 border-t border-sand-200 flex items-center justify-between">
             <span className="text-[11px] text-sand-500">

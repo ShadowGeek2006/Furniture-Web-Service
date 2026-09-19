@@ -8,18 +8,18 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12 pb-14 border-b border-espresso-700/40">
           <div className="lg:col-span-2 space-y-4">
             <span className="font-serif text-2xl font-bold tracking-wider text-linen-100 block">
-              [CLIENT_NAME]
+              माँ समय शीतला फर्नीचर एंड इलेक्ट्रॉनिक्स
             </span>
             <p className="text-xs tracking-[0.25em] uppercase text-brass-400 font-medium">
-              Bespoke Solid Wood Atelier
+              Furniture & Electronics Showroom — Best Quality, Budget Prices
             </p>
             <p className="text-sm text-sand-300 leading-relaxed max-w-sm pt-2">
-              We design and handcraft generational furniture in Grade-A Solid Teak and Seasoned Sheesham. 
-              Zero MDF. Zero particle board. Crafted with traditional mortise-and-tenon joinery to endure for decades.
+              आपके घर के लिए बेहतरीन फर्नीचर और इलेक्ट्रॉनिक्स, अपने बजट में।
+              Wide range of home furniture and electronics at prices that fit every budget — trusted by families across Mau.
             </p>
             <div className="pt-2 flex items-center space-x-3 text-xs text-sand-400">
-              <span className="flex items-center"><span className="text-brass-400 mr-1.5">✓</span> 10-Year Structural Warranty</span>
-              <span className="flex items-center"><span className="text-brass-400 mr-1.5">✓</span> White-Glove Installation</span>
+              <span className="flex items-center"><span className="text-brass-400 mr-1.5">✓</span> Best Price Guarantee</span>
+              <span className="flex items-center"><span className="text-brass-400 mr-1.5">✓</span> Home Delivery Available</span>
             </div>
           </div>
 
@@ -32,6 +32,7 @@ export const Footer: React.FC = () => {
               <li><Link href="/shop?category=Dining+Room" className="hover:text-brass-400 transition-colors">Dining Suites</Link></li>
               <li><Link href="/shop?category=Bedroom" className="hover:text-brass-400 transition-colors">Solid Wood Beds</Link></li>
               <li><Link href="/shop?category=Study+%26+Office" className="hover:text-brass-400 transition-colors">Study Desks & Bookshelves</Link></li>
+              <li><Link href="/shop?category=Electronics" className="hover:text-brass-400 transition-colors">Electronics & Appliances</Link></li>
               <li><Link href="/#custom-furniture" className="hover:text-brass-400 transition-colors">Custom Carpentry</Link></li>
             </ul>
           </div>
@@ -53,9 +54,9 @@ export const Footer: React.FC = () => {
             <h4 className="text-xs uppercase tracking-widest text-linen-100 font-semibold mb-4">
               Workshop & Showroom
             </h4>
-            <p className="text-sm text-sand-300 leading-normal">[CLIENT_ADDRESS]</p>
-            <p className="text-sm text-sand-300"><span className="text-xs text-sand-400 block">Direct Line:</span>[CLIENT_PHONE]</p>
-            <p className="text-sm text-sand-300"><span className="text-xs text-sand-400 block">Email:</span>[CLIENT_EMAIL]</p>
+            <p className="text-sm text-sand-300 leading-normal">Dubari, Madhuban, Mau, Uttar Pradesh - 221601</p>
+            <p className="text-sm text-sand-300"><span className="text-xs text-sand-400 block">Direct Line:</span>YOUR_PHONE</p>
+            <p className="text-sm text-sand-300"><span className="text-xs text-sand-400 block">Email:</span>ayushayadav9621@gmail.com</p>
             <div className="pt-2">
               <a
                 href="https://wa.me/919999999999?text=Hi%2C%20I%20would%20like%20to%20consult%20with%20your%20furniture%20studio."
@@ -70,7 +71,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-sand-400 gap-4">
-          <p>&copy; {new Date().getFullYear()} [CLIENT_NAME]. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Maa Samay Sitla Furniture and Electronics. All rights reserved.</p>
           <p className="text-[11px] text-sand-500">
             GST Compliant Invoicing &bull; Handcrafted in India
           </p>

@@ -95,10 +95,10 @@ export default function ProductDetailPage() {
 
             <div className="mt-8 p-5 bg-linen-100 rounded-sm border border-sand-200 text-xs space-y-2">
               <div className="font-semibold uppercase tracking-wider text-espresso-900 flex items-center">
-                <span className="text-brass-600 mr-2 text-base">🛡️</span> 10-Year Master Joiner Guarantee
+                <span className="text-brass-600 mr-2 text-base">🛡️</span> {product.category === "Electronics" ? `${product.warrantyYears}-Year Manufacturer Warranty & Mau Demo` : "10-Year Master Joiner Guarantee"}
               </div>
               <p className="text-sand-500 leading-relaxed">
-                Handcrafted strictly with seasoned timber seasoned under 10% moisture. Backed by full replacement protection against timber shrinkage, joint loosening, and wood-boring pests.
+                {product.category === "Electronics" ? "Brand authentic product backed by genuine manufacturer warranty, doorstep delivery, and installation demo support in Mau." : "Handcrafted strictly with seasoned timber seasoned under 10% moisture. Backed by full replacement protection against timber shrinkage, joint loosening, and wood-boring pests."}
               </p>
             </div>
           </div>
@@ -147,7 +147,7 @@ export default function ProductDetailPage() {
 
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-espresso-800 mb-2">
-                  Select Polish Finish: <span className="text-brass-600 font-bold">{selectedFinish}</span>
+                  {product.category === "Electronics" ? "Select Color / Finish: " : "Select Polish Finish: "}<span className="text-brass-600 font-bold">{selectedFinish}</span>
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {finishes.map((f) => (
@@ -235,7 +235,7 @@ export default function ProductDetailPage() {
         {relatedProducts.length > 0 && (
           <div className="mb-12 text-left">
             <h3 className="font-serif text-2xl font-medium text-espresso-900 mb-6">
-              Complementary Furniture for {product.category}
+              {product.category === "Electronics" ? "Related Products & Appliances" : `Complementary Furniture for ${product.category}`}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {relatedProducts.map((p) => (

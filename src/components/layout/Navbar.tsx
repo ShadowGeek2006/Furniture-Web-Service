@@ -14,6 +14,7 @@ export const Navbar: React.FC = () => {
     { label: "Dining", href: "/shop?category=Dining+Room" },
     { label: "Bedroom", href: "/shop?category=Bedroom" },
     { label: "Study & Office", href: "/shop?category=Study+%26+Office" },
+    { label: "Electronics", href: "/shop?category=Electronics" },
     { label: "Custom Craft", href: "/#custom-furniture" },
   ];
 
@@ -42,7 +43,7 @@ export const Navbar: React.FC = () => {
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="group text-left">
                 <span className="font-serif text-2xl sm:text-3xl font-bold tracking-wider text-espresso-900 block group-hover:text-brass-600 transition-colors">
-                  [CLIENT_NAME]
+                  माँ समय शीतला फर्नीचर
                 </span>
                 <span className="text-[10px] tracking-[0.25em] uppercase text-sand-500 block -mt-1 font-medium">
                   Atelier &bull; Solid Wood Craft

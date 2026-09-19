@@ -27,6 +27,12 @@ export const RoomCategories: React.FC = () => {
       image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=800&q=80",
       href: "/shop?category=Study+%26+Office",
     },
+    {
+      title: "Electronics & Appliances",
+      subtitle: "Smart 4K TVs, Refrigerators, Washing Machines & ACs",
+      image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=800&q=80",
+      href: "/shop?category=Electronics",
+    },
   ];
 
   return (
@@ -40,11 +46,11 @@ export const RoomCategories: React.FC = () => {
             Designed for Every Living Space
           </h2>
           <p className="text-sm text-sand-500 mt-3">
-            Each collection is scaled proportionally with timeless silhouettes that allow the natural wood grain to take center stage.
+            Explore our wide selection of handcrafted home furniture and high-quality home electronics and appliances.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
           {categories.map((cat) => (
             <Link
               key={cat.title}

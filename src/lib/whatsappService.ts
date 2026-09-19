@@ -94,10 +94,10 @@ ${message}`);
    */
   public static async sendCustomerConfirmation(data: OrderNotificationData): Promise<boolean> {
     const message = `Hello ${data.customerName},\n\n` +
-      `Thank you for reaching out to *[CLIENT_NAME] Atelier*! We have received your furniture enquiry (*${data.orderNumber}*).\n\n` +
+      `Thank you for reaching out to *Maa Samay Sitla Furniture and Electronics*! We have received your furniture enquiry (*${data.orderNumber}*).\n\n` +
       `Our master craftsman is reviewing the timber availability and polish specifications for your selected pieces. We will contact you shortly on this number to confirm delivery details.\n\n` +
       `Best regards,\n` +
-      `*[CLIENT_NAME] Workshop Team*`;
+      `*Maa Samay Sitla Team*`;
 
     return this.sendRawMessage({ to: data.customerPhone, message });
   }

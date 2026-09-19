@@ -1,6 +1,6 @@
-export type WoodType = "Solid Teak" | "Sheesham (Indian Rosewood)" | "Solid Oak" | "Acacia Wood" | "Engineered Wood";
-export type FinishType = "Natural Walnut" | "Honey Teak" | "Dark Mahogany" | "Matte Oak" | "Charcoal Black";
-export type RoomCategory = "Living Room" | "Dining Room" | "Bedroom" | "Study & Office" | "Custom Handcrafted";
+export type WoodType = "Solid Teak" | "Sheesham (Indian Rosewood)" | "Solid Oak" | "Acacia Wood" | "Engineered Wood" | "Electronics / Home Appliance";
+export type FinishType = "Natural Walnut" | "Honey Teak" | "Dark Mahogany" | "Matte Oak" | "Charcoal Black" | "Metallic Silver" | "Piano Black" | "Glacier White";
+export type RoomCategory = "Living Room" | "Dining Room" | "Bedroom" | "Study & Office" | "Custom Handcrafted" | "Electronics";
 
 export interface ProductDimensions {
   length: number; // in inches

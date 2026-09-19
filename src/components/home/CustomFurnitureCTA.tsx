@@ -8,13 +8,13 @@ export const CustomFurnitureCTA: React.FC = () => {
         <div className="bg-espresso-800 border border-espresso-700/60 rounded-sm p-8 sm:p-12 lg:p-16">
           <div className="max-w-3xl space-y-6">
             <span className="text-xs uppercase tracking-widest text-brass-400 font-semibold block">
-              Bespoke Carpentry & Custom Dimensions
+              Need Help Choosing? / मदद चाहिए?
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight">
-              Have a Specific Architectural Layout or Pinterest Board in Mind?
+              Looking for Something Specific?
             </h2>
             <p className="text-sm sm:text-base text-sand-300 leading-relaxed max-w-2xl">
-              From extending dining tables to fit 12 guests, to crafting customized wall-to-wall library credenzas or bespoke fluted headboards — share your sketches, floor plans, or reference photos directly with our master carpenters on WhatsApp.
+              किसी खास फर्नीचर या इलेक्ट्रॉनिक्स आइटम की तलाश में हैं? हमें WhatsApp पर बताएं — हम आपको सही दाम और उपलब्धता बताएंगे। Tell us what you're looking for on WhatsApp and we'll help you find it at the best price.
             </p>
 
             <div className="pt-4 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
